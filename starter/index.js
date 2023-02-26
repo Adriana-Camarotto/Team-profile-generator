@@ -153,5 +153,5 @@ function promptTeam() {
                 console.log("Team created successfully!");
                 return;
         }
-    ));
+    });    
 }
