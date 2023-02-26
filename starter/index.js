@@ -131,7 +131,7 @@ function promptIntern() {
 //function to prompt for adding another team member or finishing building the team
 function promptTeam() {
     return inquirer
-    .prompt({
+    .prompt([
         {
             type: "list",
             name: "action",
@@ -142,7 +142,7 @@ function promptTeam() {
                 "finish building the team",
             ],
         },
-    })
+    ])
     .then((answers) => {
         switch (answers.action){
             case "add an engineer":
