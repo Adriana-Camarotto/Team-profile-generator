@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./src/page-template.js");
 
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
+//TODO: Write Code to gather information about the development team members, and render the HTML file.
 
 // Create an empty array to hold the team members
 const teamMembers = [];
@@ -155,3 +155,10 @@ function promptTeam() {
         }
     });    
 }
+
+//it will overwritten the page-template.js file
+fs.writeFile("page-template.js", html, function(err) {
+    if (err) throw err;
+    console.log("Page created successfully!");
+});
+
