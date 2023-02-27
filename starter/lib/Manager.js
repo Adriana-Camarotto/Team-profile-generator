@@ -10,7 +10,7 @@ class Manager extends Employee { //constructor calls the parent `Employee`
     }
 
     // defined getOffficeNumber() method to return the correspondent property
-    getOffficeNumber() {
+    getOfficeNumber() {
         return this.officeNumber;
     }
     //Override the getRole()method in the subclass to return its own role.

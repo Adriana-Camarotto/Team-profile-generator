@@ -4,7 +4,7 @@
   "description": "This application will take in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/Adriana-Camarotto/Team-profile-generator#readme",
   "dependencies": {
-    "inquirer": "^9.1.4"
+    "inquirer": "^8.2.5"
   },
   "devDependencies": {
     "jest": "^29.4.3"
-  }
+  },
+  "keywords": []
 }
