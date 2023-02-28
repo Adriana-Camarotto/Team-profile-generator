@@ -17,8 +17,6 @@ const render = require("./src/page-template.js");
 // Create an empty array to hold the team members
 const teamMembers = [];
 
-const idArray = []
-
 //function to prompt for manager details
 function promptManager() {
     //use inquirer to prompt for manager information
@@ -40,14 +38,14 @@ function promptManager() {
             message: "What is the manager's email?",        
         },
         {
-            tyoe: "input",
+            type: "input",
             name: "officeNumber",
             message: "what is the team manager`s office number?",
-        }
+        },
     ])
     .then((answers) => {
         //create a new manager object with the imput values
-        const manager = new Manager(
+        let manager = new Manager(
             answers.name,
             answers.id,
             answers.email,
@@ -55,9 +53,11 @@ function promptManager() {
         );
         //added the manager object to the employees array
         teamMembers.push(manager);
-        console.log("Manager added successfully!");  
-    });
-}
+        console.log("Manager added successfully!");
+        //call menu to continue
+        promptMenu();  
+    })
+}; //end the function
 
 // function to prompt for engineer details
 function promptEngineer() {
@@ -87,7 +87,7 @@ function promptEngineer() {
     ])
     .then((answers) => {
     //create a new engineer object with the imput values
-    const engineer = new Engineer(
+    let engineer = new Engineer(
         answers.name,
         answers.id,
         answers.email,
@@ -96,8 +96,10 @@ function promptEngineer() {
         //add the engineer object to the employees array
         teamMembers.push(engineer);
         console.log("Engineer added successfully!");
-    }); 
-}
+        //call menu to continue
+        promptMenu();  
+    }) 
+}; //end the function
 
 //function to prompt for intern details
 function promptIntern() {
@@ -136,19 +138,22 @@ function promptIntern() {
         // add the intern object to the employees array
         teamMembers.push(intern);
         console.log("Intern added successfully!");
-    }); 
-}
+        //call menu to continue
+        promptMenu();  
+    }) 
+}; //end the function
 
 //function to prompt for adding another team member or finishing building the team
-function promptTeam() {
+function promptMenu() {
     //use inquirer to prompt the user to add another team member or finish building the team
     return inquirer
     .prompt([
         {
             type: "list",
-            name: "action",
-            message: "What woul you like to do next?",
+            name: "menu",
+            message: "What would you like to do next?",
             choices: [
+                "Add a Manager",
                 "Add an engineer",
                 "Add an intern",
                 "finish building the team",
@@ -157,23 +162,29 @@ function promptTeam() {
     ])
     .then((answers) => {
         //depending on the user`s choice, call the apropriate prompt fucntion or generate the HTML file
-        switch (answers.action){
-            case "add an engineer":
-                return promptEngineer().then(() => promptTeam());
-            case "add an intern":
-                return promptIntern().then(() => promptTeam());
+        switch (answers.menu){
+            case "Add a Manager":
+               promptManager().then(() => promptMenu());
+                break;            
+            case "Add an engineer":
+                promptEngineer().then(() => promptMenu());
+                break;
+            case "Add an intern":
+                promptIntern().then(() => promptMenu());
+                break;
             default:
-                console.log("Team created successfully!");
+                console.log("Team created successfully!");                
                 return;
         }
-    });    
-}
+    })    
+};
 
 //it will overwritten the page-template.js file
 const html = render(teamMembers);
 
-fs.writeFile(outputPath, html, function(err) {
-    if (err) throw err;
-    console.log("Page created successfully!");
-});
-
+function generate(fileName, data) {
+    fs.writeFile(outputPath, html, function(err) {
+        if (err) throw err;
+        console.log("Page created successfully!");
+    })
+};
