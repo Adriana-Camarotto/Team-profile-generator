@@ -5,11 +5,11 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
+const pageTemplate = require("./src/page-template")
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./src/page-template.js");
+const render = require("../starter/src/page-template.js");
 
 
 //TODO: Write Code to gather information about the development team members, and render the HTML file.
@@ -162,29 +162,37 @@ function promptMenu() {
     ])
     .then((answers) => {
         //depending on the user`s choice, call the apropriate prompt fucntion or generate the HTML file
-        switch (answers.menu){
-            case "Add a Manager":
-               promptManager().then(() => promptMenu());
-                break;            
+        switch (answers.menu){                 
             case "Add an engineer":
-                promptEngineer().then(() => promptMenu());
+                promptEngineer();
                 break;
             case "Add an intern":
-                promptIntern().then(() => promptMenu());
+                promptIntern();
                 break;
             default:
-                console.log("Team created successfully!");                
-                return;
+                buildTeam();
         }
     })    
 };
 
-//it will overwritten the page-template.js file
-const html = render(teamMembers);
+    
 
-function generate(fileName, data) {
-    fs.writeFile(outputPath, html, function(err) {
-        if (err) throw err;
-        console.log("Page created successfully!");
-    })
-};
+    //it will overwritten the page-template.js file
+    
+   
+
+    const buildTeam = () => {
+        console.log(`
+        ===============
+        Finished building my team!
+        ===============
+        `);
+    
+        // Create the output directory if the output path doesn't exist
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR)
+        }
+        fs.writeFileSync(outputPath, pageTemplate(teamMembers), "utf-8");
+    }
+    
+    promptManager();
