@@ -1,3 +1,4 @@
+//import necessary modules and classes
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -16,8 +17,11 @@ const render = require("./src/page-template.js");
 // Create an empty array to hold the team members
 const teamMembers = [];
 
+const idArray = []
+
 //function to prompt for manager details
 function promptManager() {
+    //use inquirer to prompt for manager information
     return inquirer 
     .prompt([
         {
@@ -42,12 +46,14 @@ function promptManager() {
         }
     ])
     .then((answers) => {
+        //create a new manager object with the imput values
         const manager = new Manager(
             answers.name,
             answers.id,
             answers.email,
             answers.officeNumber
         );
+        //added the manager object to the employees array
         teamMembers.push(manager);
         console.log("Manager added successfully!");  
     });
@@ -55,6 +61,7 @@ function promptManager() {
 
 // function to prompt for engineer details
 function promptEngineer() {
+    //use inquirer to prompt for engineer information
     return inquirer
     .prompt([
         {
@@ -79,13 +86,14 @@ function promptEngineer() {
         },        
     ])
     .then((answers) => {
-    
+    //create a new engineer object with the imput values
     const engineer = new Engineer(
         answers.name,
-        answeres.id,
-        answeres.email,
+        answers.id,
+        answers.email,
         answers.github
         );
+        //add the engineer object to the employees array
         teamMembers.push(engineer);
         console.log("Engineer added successfully!");
     }); 
@@ -93,6 +101,7 @@ function promptEngineer() {
 
 //function to prompt for intern details
 function promptIntern() {
+    //use inquirer to prompt for intern information
     return inquirer
     .prompt([
         {
@@ -117,12 +126,14 @@ function promptIntern() {
         },        
     ])
     .then((answers) => {
+    //create an new Inter object with the input values
     const intern = new Intern(
         answers.name,
-        answeres.id,
-        answeres.email,
+        answers.id,
+        answers.email,
         answers.school
         );
+        // add the intern object to the employees array
         teamMembers.push(intern);
         console.log("Intern added successfully!");
     }); 
@@ -130,6 +141,7 @@ function promptIntern() {
 
 //function to prompt for adding another team member or finishing building the team
 function promptTeam() {
+    //use inquirer to prompt the user to add another team member or finish building the team
     return inquirer
     .prompt([
         {
@@ -144,10 +156,11 @@ function promptTeam() {
         },
     ])
     .then((answers) => {
+        //depending on the user`s choice, call the apropriate prompt fucntion or generate the HTML file
         switch (answers.action){
             case "add an engineer":
-                return promptEnginner().then(() => promptTeam());
-            case "Add an intern":
+                return promptEngineer().then(() => promptTeam());
+            case "add an intern":
                 return promptIntern().then(() => promptTeam());
             default:
                 console.log("Team created successfully!");
@@ -157,7 +170,9 @@ function promptTeam() {
 }
 
 //it will overwritten the page-template.js file
-fs.writeFile("page-template.js", html, function(err) {
+const html = render(teamMembers);
+
+fs.writeFile(outputPath, html, function(err) {
     if (err) throw err;
     console.log("Page created successfully!");
 });
