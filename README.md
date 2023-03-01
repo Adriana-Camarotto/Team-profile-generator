@@ -38,7 +38,7 @@ Constribuitions are always welcome! Please open an issue or submit a pull reques
 
 ## Screenshot
 
-![preview](./...........)
+![preview](./assets/My%20team%20screenshot.jpeg)
 
 
 
