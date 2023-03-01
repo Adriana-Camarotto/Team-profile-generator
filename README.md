@@ -1,5 +1,5 @@
 # Team-profile-generator
-A command-Line application that takes in information abou employess on a software engineering team and generates an HTML webpage that displays summaries for each person.
+A command-Line application that takes in information about employess on a software engineering team and generates an HTML webpage that displays summaries for each person.
 
 ---
 
