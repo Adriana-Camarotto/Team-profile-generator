@@ -183,9 +183,10 @@ function promptMenu() {
 
     const buildTeam = () => {
         console.log(`
-        ===============
-        Finished building my team!
-        ===============
+        **************************
+        Team successfully created!
+        **************************
+        
         `);
     
         // Create the output directory if the output path doesn't exist
